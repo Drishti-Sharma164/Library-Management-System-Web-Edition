@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">L</div>
+        <div><strong>Libra</strong><span>LIBRARY PORTAL</span></div>
+      </div>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-link active" data-page="dashboard"><span>▦</span>Dashboard</button>
+        <button class="nav-link" data-page="books"><span>▤</span>Books</button>
+        <button class="nav-link" data-page="students"><span>♙</span>Students</button>
+        <button class="nav-link" data-page="circulation"><span>⇄</span>Issue / Return</button>
+        <button class="nav-link" data-page="transactions"><span>◷</span>Transactions</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">?</div><strong>Need a hand?</strong><p>Manage your library records from one place.</p></div>
+        <div class="profile"><div class="avatar">A</div><div><strong>Administrator</strong><span>Library manager</span></div></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow">LIBRARY MANAGEMENT</div><h1 id="page-title">Dashboard</h1></div>
+        <div class="top-right"><span class="status-dot"></span><span>System online</span><div class="top-avatar">A</div></div>
+      </header>
+
+      <section id="dashboard-page" class="page active">
+        <div class="welcome-row"><div><h2>Good day, Administrator <span>✦</span></h2><p>Here’s what’s happening in your library today.</p></div><button class="primary-btn" data-go="books">＋ Add a book</button></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Total books</span><span class="stat-icon blue">▤</span></div><strong id="stat-books">0</strong><small>In your collection</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Registered students</span><span class="stat-icon purple">♙</span></div><strong id="stat-students">0</strong><small>Active library members</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Books available</span><span class="stat-icon green">✓</span></div><strong id="stat-available">0</strong><small>Ready to be borrowed</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Currently issued</span><span class="stat-icon orange">⇄</span></div><strong id="stat-issued">0</strong><small><b id="stat-overdue">0</b> overdue</small></article>
+        </div>
+        <div class="content-grid">
+          <article class="panel"><div class="panel-heading"><div><h3>Quick actions</h3><p>Common library tasks</p></div></div><div class="quick-grid">
+            <button class="quick-action" data-go="books"><span class="quick-icon blue">＋</span><b>Add new book</b><small>Add a title to the collection</small></button>
+            <button class="quick-action" data-go="students"><span class="quick-icon purple">♙</span><b>Register student</b><small>Create a library membership</small></button>
+            <button class="quick-action" data-go="circulation"><span class="quick-icon green">⇄</span><b>Issue a book</b><small>Assign a book to a student</small></button>
+            <button class="quick-action" data-go="transactions"><span class="quick-icon orange">◷</span><b>View transactions</b><small>Review borrowing history</small></button>
+          </div></article>
+          <article class="panel recent-panel"><div class="panel-heading"><div><h3>Recent activity</h3><p>Your latest library records</p></div><button class="text-btn" data-go="transactions">View all</button></div><div id="recent-activity" class="recent-list"><div class="empty-state">No transactions to show yet.</div></div></article>
+        </div>
+      </section>
+
+      <section id="books-page" class="page">
+        <div class="section-intro"><div><h2>Books collection</h2><p>Add, search and manage the books in your library.</p></div><button class="primary-btn" id="show-book-form">＋ Add book</button></div>
+        <div class="panel form-panel hidden" id="book-form-panel"><div class="panel-heading"><div><h3 id="book-form-title">Add a new book</h3><p>Enter the book details below.</p></div><button class="close-btn" id="cancel-book-form">×</button></div><form id="book-form" class="form-grid"><input type="hidden" id="book-id"><label>Book title<input id="book-title" required placeholder="e.g. Clean Code"></label><label>Author<input id="book-author" required placeholder="Author name"></label><label>Category<input id="book-category" required placeholder="e.g. Programming"></label><div class="form-actions"><button type="button" class="secondary-btn" id="cancel-book-form-2">Cancel</button><button class="primary-btn" type="submit">Save book</button></div></form></div>
+        <div class="panel"><div class="table-toolbar"><div><h3>All books</h3><p id="book-count">0 books</p></div><input class="search-input" id="book-search" placeholder="⌕  Search title, author or category..."></div><div class="table-wrap"><table><thead><tr><th>BOOK</th><th>AUTHOR</th><th>CATEGORY</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="books-table"></tbody></table></div></div>
+      </section>
+
+      <section id="students-page" class="page">
+        <div class="section-intro"><div><h2>Students</h2><p>Manage registered library members.</p></div><button class="primary-btn" id="show-student-form">＋ Register student</button></div>
+        <div class="panel form-panel hidden" id="student-form-panel"><div class="panel-heading"><div><h3 id="student-form-title">Register a student</h3><p>Add student contact details.</p></div><button class="close-btn" id="cancel-student-form">×</button></div><form id="student-form" class="form-grid"><input type="hidden" id="student-id"><label>Student name<input id="student-name" required placeholder="Full name"></label><label>Contact number<input id="student-contact" required placeholder="Phone number"></label><div class="form-actions"><button type="button" class="secondary-btn" id="cancel-student-form-2">Cancel</button><button class="primary-btn" type="submit">Save student</button></div></form></div>
+        <div class="panel"><div class="table-toolbar"><div><h3>Registered students</h3><p id="student-count">0 students</p></div><input class="search-input" id="student-search" placeholder="⌕  Search students..."></div><div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>CONTACT</th><th>BOOKS HELD</th><th>ACTION</th></tr></thead><tbody id="students-table"></tbody></table></div></div>
+      </section>
+
+      <section id="circulation-page" class="page">
+        <div class="section-intro"><div><h2>Issue & return</h2><p>Keep track of books borrowed by students.</p></div></div>
+        <div class="circulation-grid">
+          <article class="panel circulation-card"><div class="circle-icon issue-icon">↗</div><h3>Issue a book</h3><p>Assign an available book to a registered student.</p><form id="issue-form" class="stack-form"><label>Select student<select id="issue-student" required><option value="">Choose a student</option></select></label><label>Select book<select id="issue-book" required><option value="">Choose an available book</option></select></label><label>Issue date<input type="date" id="issue-date"></label><button class="primary-btn full-btn">Issue book</button></form></article>
+          <article class="panel circulation-card"><div class="circle-icon return-icon">↙</div><h3>Return a book</h3><p>Record a returned book and calculate any late fine.</p><form id="return-form" class="stack-form"><label>Open issue record<select id="return-record" required><option value="">Choose an issued book</option></select></label><label>Return date<input type="date" id="return-date"></label><button class="primary-btn full-btn">Return book</button></form><div class="fine-note">Loan period: 14 days · Late fine: ₹2 per day</div></article>
+        </div>
+      </section>
+
+      <section id="transactions-page" class="page">
+        <div class="section-intro"><div><h2>Transactions</h2><p>Complete borrowing and return history.</p></div></div>
+        <div class="panel"><div class="table-toolbar"><div><h3>All transactions</h3><p>Issue dates, due dates and fine status</p></div></div><div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>BOOK</th><th>ISSUED</th><th>DUE DATE</th><th>RETURNED</th><th>FINE</th><th>STATUS</th></tr></thead><tbody id="transactions-table"></tbody></table></div></div>
+      </section>
+      <div id="toast" class="toast"></div>
+      <footer>LIBRA <span>·</span> Library Management System</footer>
+    </main>
+  </div>
+  <script src="/script.js"></script>
+</body>
+</html>

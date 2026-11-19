@@ -1,0 +1,12 @@
+
+# Executable files
+*.exe
+
+# Object files
+*.o
+
+# Personal library records
+backend/data/*.txt
+
+# Temporary files
+*.log
