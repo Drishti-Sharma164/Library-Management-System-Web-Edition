@@ -1,56 +1,104 @@
-LIBRARY WEB APP - ONE-TIME SETUP
-================================
+# LIBRARY MANAGEMENT SYSTEM – WEB EDITION
+## Installation and Setup Guide
 
-This package adds a Crow-based web interface to your existing C++ Library Management System.
-It does NOT replace your original src/main.cpp or rewrite your existing library logic.
+### 1. Overview
 
-FILES INCLUDED
---------------
-backend/include/Library.h   Adds three read-only collection accessors.
-backend/src/web_server.cpp  Crow web server and JSON API.
-frontend/index.html         Dashboard and application pages.
-frontend/style.css          Navy sidebar / light dashboard styling.
-frontend/script.js          Browser-side actions and API calls.
+This package extends the existing C++ Library Management System by introducing a browser-based interface powered by the **Crow C++ web framework**.
 
-BEFORE YOU EXTRACT
-------------------
-1. Close the currently running web_server.exe (in its terminal press Ctrl+C).
-2. Make a backup copy of your existing Library_web_app folder.
-3. Extract this ZIP into the Library_web_app folder.
-4. If Windows asks whether to replace backend/include/Library.h, choose Replace.
-   It is the same Library.h interface with only three read-only getters added.
-5. The package creates/replaces backend/src/web_server.cpp and the three frontend files.
-6. Do NOT replace src/main.cpp.
+The web edition is designed to integrate with the existing application without replacing its original implementation or modifying its core library management logic.
 
-COMPILE
--------
-Open PowerShell and run:
+### 2. Package Contents
 
+The following files are included in this package:
+
+| File | Description |
+|---|---|
+| `backend/include/Library.h` | Adds three read-only collection accessors to the existing Library class. |
+| `backend/src/web_server.cpp` | Implements the Crow-based web server and JSON API endpoints. |
+| `frontend/index.html` | Defines the dashboard and application interface. |
+| `frontend/style.css` | Provides the application's visual styling and layout. |
+| `frontend/script.js` | Handles browser-side interactions and API communication. |
+
+### 3. One-Time Installation
+
+Before extracting the package, follow these steps:
+
+1. Stop the currently running web server. If `web_server.exe` is active, press `Ctrl + C` in its terminal.
+2. Create a backup of your existing `Library_web_app` project folder.
+3. Extract the ZIP package into the existing `Library_web_app` directory.
+4. If Windows prompts you to replace `backend/include/Library.h`, select **Replace**. The updated file retains the existing interface and adds only three read-only getter methods.
+5. Allow the package to create or replace the following files:
+   - `backend/src/web_server.cpp`
+   - `frontend/index.html`
+   - `frontend/style.css`
+   - `frontend/script.js`
+
+**Important:** Do not replace or overwrite the original `backend/src/main.cpp`. The console-based application must remain intact.
+
+### 4. Compilation
+
+Open PowerShell and navigate to the backend directory:
+
+```powershell
 cd C:\Users\hp\Downloads\Library_web_app\backend
+```
 
-g++ -std=c++17 -Iinclude -IC:\msys64\ucrt64\include src\web_server.cpp src\Book.cpp src\Library.cpp src\Librarian.cpp src\Transaction.cpp src\FileManager.cpp src\Student.cpp -o web_server.exe -lws2_32 -lmswsock
+Compile the web server using the following command:
 
-If compilation succeeds, start the server:
+```powershell
+g++ -std=c++17 -Iinclude -IC:\msys64\ucrt64\include src/web_server.cpp src\Book.cpp src\Library.cpp src\Librarian.cpp src\Transaction.cpp src\FileManager.cpp src\Student.cpp -o web_server.exe -lws2_32 -lmswsock
+```
 
+If compilation completes successfully, the executable `web_server.exe` will be generated in the backend directory.
+
+### 5. Running the Application
+
+Start the web server from the backend directory:
+
+```powershell
 .\web_server.exe
+```
 
-Then open:
-http://localhost:18080
+Once the server is running, open the following address in your web browser:
 
-IMPORTANT
----------
-- Always launch web_server.exe while the current folder is backend.
-- The web app reads and writes the existing backend/data files.
-- It does not automatically add sample records.
-- If backend/data is empty, the dashboard will show zero records. Add books and students through the web app.
-- Your existing console application remains separate and can still be compiled/run as before.
-- Keep the server terminal open while using the website. Press Ctrl+C to stop it.
+**http://localhost:18080**
 
-LIBRARY RULES
--------------
-The web interface uses your existing Library class rules:
-- A student can hold up to 3 books.
-- Loan duration is 14 days.
-- Late fine is Rs. 2 per day.
-- A currently issued book cannot be deleted.
-- A student who still holds books cannot be deleted.
+The web interface will connect to the C++ backend through the configured API endpoints.
+
+### 6. Important Operational Notes
+
+- Always launch `web_server.exe` while the current working directory is the `backend` folder.
+- The web application uses the existing files in `backend/data` for persistent storage.
+- No sample records are automatically inserted during installation.
+- If the data files are empty, the dashboard will initially display zero records. Books and student records can be added through the web interface.
+- The original console-based application remains independent and can still be compiled and executed separately.
+- Keep the server terminal running while accessing the web application.
+- To stop the server, press `Ctrl + C` in the terminal.
+
+### 7. Library Management Rules
+
+The web edition follows the existing business rules implemented in the C++ `Library` class:
+
+| Rule | Description |
+|---|---|
+| Maximum borrowing limit | A student may hold a maximum of 3 books at a time. |
+| Loan duration | The standard borrowing period is 14 days. |
+| Late return fine | A fine of ₹2 per day is charged for overdue books. |
+| Book deletion | A book cannot be deleted while it is currently issued. |
+| Student deletion | A student cannot be deleted while they have outstanding issued books. |
+
+### 8. Project Architecture
+
+The application consists of three main components:
+
+- **C++ Backend:** Manages library operations, application logic, data processing and file-based storage.
+- **Crow Web Server:** Handles HTTP requests and exposes backend functionality through JSON API endpoints.
+- **Frontend:** Uses HTML, CSS and JavaScript to provide an interactive browser-based interface.
+
+These components work together to provide a web-based experience while preserving the original C++ library management functionality.
+
+---
+
+**Project:** Library Management System – Web Edition  
+**Technology Stack:** C++, Crow, Asio, HTML, CSS and JavaScript  
+**Storage:** File-based data persistence
